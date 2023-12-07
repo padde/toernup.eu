@@ -142,7 +142,7 @@
         stroke: var(--color-deepsea);
       }
 
-      .seasound-play-button {
+      .play-button {
         position: fixed;
         top: 2em;
         right: 2em;
@@ -151,29 +151,29 @@
         padding: none;
         cursor: pointer;
       }
-      .seasound-play-button .icon svg {
+      .play-button .icon svg {
         width: 30px;
         height: 30px;
       }
-      .seasound-play-button .icon svg path {
+      .play-button .icon svg path {
         fill: var(--color-deepsea);
       }
-      .seasound-play-button .icon-playing {
+      .play-button .icon-playing {
         display: none;
       }
-      .seasound-play-button .icon-paused {
+      .play-button .icon-paused {
         opacity: 0.7;
       }
-      .seasound-play-button.playing .icon-playing {
+      .play-button.playing .icon-playing {
         display: initial;
       }
-      .seasound-play-button.playing .icon-paused {
+      .play-button.playing .icon-paused {
         display: none;
       }
     </style>
   </head>
   <body>
-    <button class="seasound-play-button">
+    <button class="play-button">
       <span class="icon icon-paused">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M13 3.7446C13 3.27314 12.8728 2.50021 12.1657 2.14424C11.4151 1.76635 10.7163 2.19354 10.3623 2.51158L4.94661 7.43717H3C1.89543 7.43717 1 8.3326 1 9.43717L1.00001 14.6248C1.00001 15.7293 1.89544 16.6248 3.00001 16.6248H4.95001L10.3623 21.4891C10.7175 21.8081 11.416 22.2331 12.1656 21.8554C12.8717 21.4998 13 20.7286 13 20.2561V3.7446ZM6.00618 9.17696L11 4.63507V19.3731L6.00179 14.881C5.81823 14.716 5.58015 14.6248 5.33334 14.6248H3.00001L3 9.43717H5.33334C5.58219 9.43717 5.82209 9.34439 6.00618 9.17696Z" fill="#000000"/>
@@ -232,38 +232,52 @@
     </footer>
 
     <audio autoplay loop class="seasound1">
+      <source src="audio/seasound.ogg" type="audio/ogg">
       <source src="audio/seasound.mp3" type="audio/mp3">
     </audio>
     <audio autoplay loop class="seasound2">
+      <source src="audio/seasound.ogg" type="audio/ogg">
       <source src="audio/seasound.mp3" type="audio/mp3">
     </audio>
+    <audio autoplay loop class="seagull">
+      <source src="audio/seagull.ogg" type="audio/ogg">
+      <source src="audio/seagull.mp3" type="audio/mp3">
+    </audio>
     <script type="text/javascript">
-      let player1 = document.querySelector('.seasound1');
-      let player2 = document.querySelector('.seasound2');
-      let button = document.querySelector('.seasound-play-button');
+      let seasound1 = document.querySelector('.seasound1');
+      let seasound2 = document.querySelector('.seasound2');
+      let seagull = document.querySelector('.seagull');
+      let button = document.querySelector('.play-button');
 
       button.onclick = () => {
-        if (player1.paused) {
-          player1.play();
-          player2.play();
+        if (seasound1.paused) {
+          seasound1.play();
+          seasound2.play();
+          seagull.play();
         } else {
-          player1.pause();
-          player2.pause();
+          seasound1.pause();
+          seasound2.pause();
+          seagull.pause();
         }
       }
 
-      player1.onplay = () => {
-        player1.volume = 0.1;
-        player1.currentTime = 0;
+      seasound1.onplay = () => {
+        seasound1.volume = 0.1;
+        seasound1.currentTime = 0;
         button.classList.add('playing');
       }
 
-      player2.onplay = () => {
-        player2.volume = 0.1;
-        player2.currentTime = player2.duration/2;
+      seasound2.onplay = () => {
+        seasound2.volume = 0.1;
+        seasound2.currentTime = seasound2.duration/2;
       }
 
-      player1.onpause = () => {
+      seagull.onplay = () => {
+        seagull.volume = 0.1;
+        seasound1.currentTime = 0;
+      }
+
+      seasound1.onpause = () => {
         button.classList.remove('playing');
       }
     </script>
